@@ -14,7 +14,7 @@ public class Main {
         JFrame frame = new JFrame();
         Maze maze = new Maze(35, 37);
         DisplayGame display = new DisplayGame(maze);
-        display.setPreferredSize(new Dimension(1000, 1000));
+        display.setPreferredSize(new Dimension(600, 600));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setContentPane(display);
         frame.setFocusable(true);

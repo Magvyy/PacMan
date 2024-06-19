@@ -53,8 +53,8 @@ public class Maze {
         CellPosition startPos = new CellPosition(1, 1);
         DFSMaze(visited, startPos);
         DFSClearDeadEnds(visited, startPos, 10);
-//        removeDeadEnds();
-//        addCenter();
+        removeDeadEnds();
+        addCenter();
         updateWallConnections();
     }
 
@@ -177,32 +177,32 @@ public class Maze {
         grid.setSprite(midPos, new Walkable(OpenType.OPEN));
     }
 
-    private void BFSClearDeadEnds(CellPosition startPos, int threshold) {
-        CellPosition currPos = startPos;
-        HashMap <CellPosition, Integer> distances = new HashMap<>();
-        distances.put(currPos, 0);
-        ArrayList <CellPosition> queue1 = new ArrayList<>();
-        queue1.add(currPos);
-        while (!queue1.isEmpty()) {
-            queue1.remove(0);
-            ArrayList <CellPosition> neighWalks1 = getNeighWalks(currPos, 2);
-            for (CellPosition neighPos1 : neighWalks1) {
-                ArrayList <CellPosition> queue2 = new ArrayList<>();
-                queue2.add(currPos);
-                while (!queue2.isEmpty()) {
-                    queue2.remove(0);
-                    ArrayList <CellPosition> neighWalks2 = getNeighWalks(currPos, 1);
-                    for (CellPosition neighPos2 : neighWalks2) {
-                        queue2.add(neighPos2);
-                    }
-
-                }
-            }
-        }
-    }
+//    private void BFSClearDeadEnds(CellPosition startPos, int threshold) {
+//        CellPosition currPos = startPos;
+//        HashMap <CellPosition, Integer> distances = new HashMap<>();
+//        distances.put(currPos, 0);
+//        ArrayList <CellPosition> queue1 = new ArrayList<>();
+//        queue1.add(currPos);
+//        while (!queue1.isEmpty()) {
+//            queue1.remove(0);
+//            ArrayList <CellPosition> neighWalks1 = getNeighWalks(currPos, 2);
+//            for (CellPosition neighPos1 : neighWalks1) {
+//                ArrayList <CellPosition> queue2 = new ArrayList<>();
+//                queue2.add(currPos);
+//                while (!queue2.isEmpty()) {
+//                    queue2.remove(0);
+//                    ArrayList <CellPosition> neighWalks2 = getNeighWalks(currPos, 1);
+//                    for (CellPosition neighPos2 : neighWalks2) {
+//                        queue2.add(neighPos2);
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
     private int DFSClearDeadEnds(HashMap <CellPosition, Integer> visited, CellPosition currPos, int threshhold) {
-        ArrayList <CellPosition> subVisited = new ArrayList<>();
+//        ArrayList <CellPosition> subVisited = new ArrayList<>();
         int subnodes = 0;
         ArrayList <CellPosition> neighbours = getNeighWalks(currPos, 1);
         Random rand = new Random();
@@ -210,7 +210,7 @@ public class Maze {
             int index = rand.nextInt(neighbours.size());
             CellPosition neighPos = neighbours.get(index);
             if (visited.get(neighPos) == 1) {
-                subVisited.add(neighPos);
+//                subVisited.add(neighPos);
                 neighbours.remove(index);
                 continue;
             }
@@ -219,28 +219,28 @@ public class Maze {
             subnodes += DFSClearDeadEnds(visited, neighPos, threshhold);
         }
         if (subnodes % threshhold == 0) {
-            ArrayList <CellPosition> subTree = subTree(subVisited, currPos);
+//            ArrayList <CellPosition> subTree = subTree(subVisited, currPos);
             removeDeadEnd(currPos);
         }
         return subnodes;
     }
 
-    private ArrayList <CellPosition> subTree(ArrayList <CellPosition> visited, CellPosition currPos) {
-        ArrayList <CellPosition> neighbours = getNeighWalks(currPos, 1);
-        visited.add(currPos);
-        int index = 0;
-        while (!neighbours.isEmpty()) {
-            CellPosition neighPos = neighbours.get(index);
-            if (visited.contains(neighPos)) {
-                neighbours.remove(index);
-                index--;
-                continue;
-            }
-            index++;
-            subTree(visited, neighPos);
-        }
-        return neighbours;
-    }
+//    private ArrayList <CellPosition> subTree(ArrayList <CellPosition> visited, CellPosition currPos) {
+//        ArrayList <CellPosition> neighbours = getNeighWalks(currPos, 1);
+//        visited.add(currPos);
+//        int index = 0;
+//        while (!neighbours.isEmpty()) {
+//            CellPosition neighPos = neighbours.get(index);
+//            if (visited.contains(neighPos)) {
+//                neighbours.remove(index);
+//                index--;
+//                continue;
+//            }
+//            index++;
+//            subTree(visited, neighPos);
+//        }
+//        return neighbours;
+//    }
 
     private void removeDeadEnds() {
         for (Cell cell : grid.getCells()) {
